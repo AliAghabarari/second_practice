@@ -15,19 +15,18 @@ def solve_puzzle(text):
     for i in puzzles:
         try:
             if (i.startswith("'") and i.endswith("'")) or (i.startswith('"') and i.endswith('"')):
-                text.append(bool(i))
+                text.append(str(bool(i)))
             else:
-                text.append(bool(eval(i)))
+                text.append(str(bool(eval(i))))
         except NameError:
-            text.append(False)
+            text.append("False")
 
 
     return text
 
 def calculate_magic_number(start, end):
-    r = random.randint(start, end - start)
     a = []
-    for i in range(r):
+    for i in range(10):
         x = random.randint(start, end)
         a.append(x)
     return a
@@ -51,7 +50,7 @@ def exam_number():
                 print(i, end = "")
             print()
             guss = int(input("enter your guss: "))
-            h.append(guss == decimal)
+            h.append(str(guss == decimal))
             if guss == decimal:
                 correct += 1
             else:
@@ -59,9 +58,108 @@ def exam_number():
         else:
             print("time ended!")
             break
-    print(h)
-    print(f"correct : {correct}")
-    print(f"incorrect: {incorrect}")
+    return h, f"correct : {correct}" , f"incorrect: {incorrect}"
+
+def check_pass():
+    person = []
+    j = 1
+    while True:
+        s = 0
+        name = input("enter name: ")
+        while bool(name) == False:
+            name = input("enter name again: ")
+        if name == "quit":
+            break
+        print(f"person {j} name is: {name}")
+        password = input("enter pssword: ")
+        while bool(password) == False:
+            password = input("enter password again:")
+
+        capital_letter = 0
+        small_letter = 0
+        character = 0
+        print(f"password of person {j} is: {password}")
+        lengh = 0
+        if 8 <= len(password):
+            lengh = 1
+        for i in password:
+            if (ord(i) < 65 and 32 < ord(i)) or (ord(i) < 97 and 90 < ord(i)) or (ord(i) < 127 and 122 < ord(i)):
+                character = 1
+            if 65 <= ord(i) and ord(i) <= 90:
+                capital_letter = 1
+            if 97 <= ord(i) and ord(i) <= 122:
+                small_letter = 1
+        if lengh == 1 and (character == 1 or capital_letter == 1) and small_letter == 1:
+            person.append(name)
+        j += 1
+    if bool(person) == False:
+        return("not found!!")
+    else:
+        return person
+
+def shape():
+    x = turtle.Screen()
+    s = turtle.Turtle()
+    s.penup()
+    s.goto(200, 100)
+    s.rt(90)
+    s.pendown()
+    s.pensize(5)
+    s.fd(100)
+    s.rt(90)
+    s.fd(40)
+    s.rt(90)
+    s.fd(100)
+    s.penup()
+    s.lt(90)
+    s.fd(10)
+    s.lt(90)
+    s.fd(70)
+    s.pendown()
+    s.forward(30)
+    s.rt(90)
+    s.fd(50)
+    s.penup()
+    s.goto(130, 40)
+    s.pendown()
+    s.dot(10)
+    s.penup()
+    s.goto(115, 40)
+    s.pendown()
+    s.dot(10)
+    s.penup()
+    s.goto(100, 0)
+    s.lt(70)
+    s.pendown()
+    s.fd(70)
+    s.rt(70)
+    s.fd(20)
+    s.penup()
+    s.goto(-10, 40)
+    s.pendown()
+    s.rt(150)
+    s.fd(40)
+    s.rt(70)
+    s.fd(70)
+    s.rt(140)
+    s.fd(140)
+    s.lt(90)
+    s.fd(30)
+    s.lt(90)
+    s.fd(30)
+    s.rt(90)
+    s.fd(60)
+    s.rt(90)
+    s.fd(80)
+    s.rt(90)
+    s.fd(80)
+    s.penup()
+    s.goto(20, -5)
+    s.pendown()
+    s.dot(10)
+    x.mainloop()
+
+
 
 keywords = 'False class from or None continue global pass True def if raise and del import return as elif in try assert else is while async except lambda with await finally nonlocalyield break for not'
 
@@ -81,11 +179,38 @@ print("output of first function:")
 is_exist = []
 is_exist = decrypt_clue(keys)
 print(is_exist)
-
+print("*********************")
 puzzles = []
 solve_puzzle(puzzles)
 print("output of second function:")
 print(puzzles)
-
+print("*********************")
 print("output of third function: ")
-exam_number()
+start , end = map(int, input("enter star and end: ").split())
+x = calculate_magic_number(start, end)
+print(calculate_magic_number(start, end))
+print("************************")
+print("output of fourth function: ")
+ls = []
+ls.append(exam_number())
+print(ls)
+print("************************")
+print("fifth function: ")
+ls2 = []
+ls2.append(check_pass())
+print(ls2)
+shape()
+
+def unlock_vault(clues):
+    clues.append(is_exist[0][0])
+    clues.append(puzzles[0][0])
+    clues.append(x[0])
+    clues.append(ls[0][0][0][0])
+    clues.append(ls2[0][0][0])
+    print("*******************")
+    print("the key of vault is:", end = "    ")
+    for i in clues:
+        print(i, end = "")
+clues = []
+
+unlock_vault(clues)
