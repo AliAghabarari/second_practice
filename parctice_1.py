@@ -8,6 +8,7 @@ def decrypt_clue(text):
     for i in text:
         if i in mysterious:
             a.append(i)
+            
     return a
 
 def solve_puzzle(text):
@@ -188,7 +189,7 @@ print("*********************")
 print("output of third function: ")
 start , end = map(int, input("enter star and end: ").split())
 x = calculate_magic_number(start, end)
-print(calculate_magic_number(start, end))
+print(x)
 print("************************")
 print("output of fourth function: ")
 ls = []
