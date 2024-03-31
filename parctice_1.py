@@ -4,12 +4,21 @@ import turtle
 
 def decrypt_clue(text):
     mysterious = "ThereareyouIandletlistintgameJupiterlinedefblindasyieldassertbreakclasscontinueexceptfinallyforfromglobalimportnonlocalpassraisereturntrywhilewithandorasassertbreakclasscontinuedefdelelifelseexceptexecfinallyforfromglobalifimportinislambdnonlocalnotorpassprintraisereprreturnsupertrywhilewithyieldTrueFalseNoneasyncawaitmatchcasenonelocaloverrideprivatesealedstaticmethodvolatileabstractenumintfloatdoublebyteboolcharstructvectorlistdictionaryqueuestackinterfacenulltrycatchfinallythrowthrowsimplementsextendspublicprotectedprivatefinalstaticvoidmainStringargsSystemoutprintlnnewMapSetGetAddRemoveClearIsEmptySizeContainsKeyContainsValueKeyValuePairsForEachDoWhileSwitchCaseDefaultbreakcontinueiteratoriterablecollectionsframeworksynchronizedtransientvolatilestrictfpbitwiselogicalshiftcompoundassignmenttypeinferencegenericswildcardstypeerasurereflectionproxydecoratorfactorysingletonprototypebuildercompositeadapterbridgechainofresponsibilitycommandstateobservermementointerpreteriteratorvisitorstrategytemplatemethodflyweightmediatorproxymultithreadingconcurrencyasynchronousprogrammingeventdrivenarchitecturefunctionalprogrammingimmutables...quantumcomputingqubitsentanglementsuperpositionquantumalgorithmsShorsGroverquantumcryptographyquantumteleportationartificialintelligenceAIoptimizationalgorithmsgraphtheorytraversalsearchalgorithmsdepthfirstsearchbreadthfirstsearchAstaralgorithmgeneticalgorithmssimulatedannealingparticlewarmoptimizationantcolonyoptimizationmachinelearningdeeplearningunsupervisedlearningreinforcementlearningneuralnetworksconvolutionalneuralnetworksrecurrentneuralnetworkslongshorttermmemorynetworksgenerativeadversar...blockchaintechnologydistributedledgerconsensusalgorithmsproofOfWorkproofOfStakeByzantineFaultTolerancepeer-to-peerP2PnetworkscryptographyhashfunctionsasymmetricencryptionpublickeyinfrastructurePKIdigitalcertificatesdigital signaturesmartcontractsdecentralizedapplicationsDAppsEthereumplatformSolidityprogramminglanguageWeb3technologyNFTsnon-fungibletokensDeFidecentralizedfinancedecentralizedexchangesDEXsstablecoinscryptocurrencyminingstakingyieldfarmingliquiditypoolsoraclesDAOsdecentralizedautonomousorganizati..."
-    a = []
-    for i in text:
-        if i in mysterious:
-            a.append(i)
-            
-    return a
+    a = [i for i in text if i in mysterious]
+    count = []
+    for i in a:
+        repeat = 0
+        for j in range(len(mysterious) - len(i) + 1):
+            s = 0
+            if i[0] == mysterious[j]:
+                for k in range(1, len(i)):
+                    if i[k] == mysterious[j + k]:
+                        s += 1
+                if s == len(i) - 1:
+                    repeat += 1
+        count.append(repeat)
+    return a, f"the number of them is : {count}"
+
 
 def solve_puzzle(text):
     puzzles = ['ali', '1233', '0', '""', '[]', '{}', "'False'", "'0'", "'None'", 'None', '-1', '[1, 2, 3]', "{'key': 'value'}", 'True', "' '", "'[]'", "'[1, 2, 3]'", "'{}'", "'{'a': 1}'", "'True'", "'ali'", "'1234'", '1', '0.1', '-0.1', 'True', "' '", "'[]'", "'[1, 2, 3]'", "'{}'", "'{'a': 1}'", "'True'", "'ali'", "'1234'", '1', '0.1', '-0.1', 'True', "' '", "'[]'", "'[1, 2, 3]'", "'{}'", "'{'a': 1}'", "'True'", "'ali'", "'1234'", '1', '0.1', '-0.1']
@@ -33,14 +42,14 @@ def calculate_magic_number(start, end):
     return a
 
 def exam_number():
-    s = time.time()
-    x = s
+    first_time = time.time()
+    second_time = first_time
     h = []
     correct = 0
     incorrect = 0
     while True:
-        x = time.time()
-        if x - s <= 20:
+        second_time = time.time()
+        if second_time - first_time <= 20:
             decimal = 0
             number = []
             for i in range(3, -1, -1):
@@ -50,7 +59,13 @@ def exam_number():
             for i in number:
                 print(i, end = "")
             print()
-            guss = int(input("enter your guss: "))
+            guss = None
+            while isinstance(guss, int) == False:
+                try:
+                    guss = int(input("enter your guss: "))
+                except ValueError:
+                    print("enter your guss agin")
+                
             h.append(str(guss == decimal))
             if guss == decimal:
                 correct += 1
@@ -66,9 +81,9 @@ def check_pass():
     j = 1
     while True:
         s = 0
-        name = input("enter name: ")
+        name = input("enter name(enter 'quit' for finish): ")
         while bool(name) == False:
-            name = input("enter name again: ")
+            name = input("enter name again(enter 'quit' for finish): ")
         if name == "quit":
             break
         print(f"person {j} name is: {name}")
@@ -90,7 +105,7 @@ def check_pass():
                 capital_letter = 1
             if 97 <= ord(i) and ord(i) <= 122:
                 small_letter = 1
-        if lengh == 1 and (character == 1 or capital_letter == 1) and small_letter == 1:
+        if lengh == 1 and character == 1 and (capital_letter == 1 or small_letter == 1):
             person.append(name)
         j += 1
     if bool(person) == False:
@@ -100,7 +115,10 @@ def check_pass():
 
 def shape():
     x = turtle.Screen()
+    x.bgcolor("pink")
     s = turtle.Turtle()
+    s.color("red")
+    s.shape()
     s.penup()
     s.goto(200, 100)
     s.rt(90)
@@ -163,7 +181,6 @@ def shape():
 
 
 keywords = 'False class from or None continue global pass True def if raise and del import return as elif in try assert else is while async except lambda with await finally nonlocalyield break for not'
-
 x = len(keywords)
 keys = []
 j = 0
@@ -177,7 +194,6 @@ for i in range(len(keywords)):
 print("output of first function:")
 
 #print(keys)
-is_exist = []
 is_exist = decrypt_clue(keys)
 print(is_exist)
 print("*********************")
@@ -192,18 +208,16 @@ x = calculate_magic_number(start, end)
 print(x)
 print("************************")
 print("output of fourth function: ")
-ls = []
-ls.append(exam_number())
+ls = exam_number()
 print(ls)
 print("************************")
 print("fifth function: ")
-ls2 = []
-ls2.append(check_pass())
+ls2 = check_pass()
 print(ls2)
 shape()
 
 def unlock_vault(clues):
-    clues.append(is_exist[0][0])
+    clues.append(is_exist[0][0][0])
     clues.append(puzzles[0][0])
     clues.append(x[0])
     clues.append(ls[0][0][0][0])
