@@ -47,7 +47,7 @@ def exam_number():
     h = []
     correct = 0
     incorrect = 0
-    while True:
+    while 1:
         second_time = time.time()
         if second_time - first_time <= 20:
             decimal = 0
@@ -118,7 +118,7 @@ def shape():
     x.bgcolor("pink")
     s = turtle.Turtle()
     s.color("red")
-    s.shape()
+    s.shape("turtle")
     s.penup()
     s.goto(200, 100)
     s.rt(90)
